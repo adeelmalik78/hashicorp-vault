@@ -1,0 +1,14 @@
+# ==== VAULT ====
+# Start Vault server in development mode. Run the following command in a new terminal session.
+vault server -dev
+
+## Setup Vault with V2
+export VAULT_ADDR='http://127.0.0.1:8200'
+vault secrets enable -path=secrets -version=2 kv
+vault kv put secrets/PP_DEV username=DATICAL_USER password=DATICAL_USER_PW url=jdbc:oracle:thin:@demo-db1-rhel6.datical.net:1521/PP_DEV.datical.net
+vault kv get secrets/PP_DEV
+vault kv put secrets/LiquibaseProLicense proLicenseKey=<Your License Key Here>
+vault kv get secrets/PP_DEV
+vault kv get secrets/LiquibaseProLicense
+
+vault kv destroy -versions=5 secrets/PP_DEV 
